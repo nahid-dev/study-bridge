@@ -13,7 +13,7 @@ export default function LoginPage() {
           <MainLogo />
         </div>
         <div className="flex flex-1 items-center justify-center">
-          <div className="w-full max-w-xs">
+          <div className="w-full max-w-sm">
             <SignUpForm />
           </div>
         </div>
