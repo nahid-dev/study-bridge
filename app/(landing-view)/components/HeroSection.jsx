@@ -14,10 +14,10 @@ const HeroSection = () => {
           easy-to-use platform.
         </p>
         <div className="flex items-center gap-4 justify-center">
-          <Button className="bg-gray-700 text-white" size="lg">
+          {/* <Button className="bg-gray-700 text-white" size="lg">
             Get Started Now
-          </Button>
-          <Button size="lg">Explore Courses</Button>
+          </Button> */}
+          {/* <Button className="w-full">Login</Button> */}
         </div>
       </div>
     </div>

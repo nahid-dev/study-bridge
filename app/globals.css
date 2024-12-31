@@ -7,54 +7,46 @@
   .text-balance {
     text-wrap: balance;
   }
-  .bg-secondary-default {
-    background-color: hsl(var(--secondary-bg-color));
-  }
-  .text-tertiary {
-    color: hsl(var(--tertiary));
-  }
-  .bg-tertiary{
-    background-color: hsl(var(--tertiary));
-  }
+  
 }
 
 @layer base {
   :root {
     --background: 0 0% 98%;
     /* Soft white for light mode */
-    --foreground: 210, 10%, 51%;
-    /* Dark text */
+    --foreground: 221, 9%, 64%;
+      /* Updated to secondary color (#949da6) */
     --card: 0 0% 100%;
     /* Pure white for cards */
-    --card-foreground: 210, 10%, 51%;
+    --card-foreground: 221, 9%, 64%;
     --popover: 0 0% 100%;
-    --popover-foreground: 210, 10%, 51%;
-    --primary: 210 90% 46%;
-    /* Deeper blue */
-    --primary-foreground: 210 40% 98%;
+    --popover-foreground: 221, 9%, 64%;
+      --primary: 240, 100%, 22%;
+      /* Updated to primary color (#090761) */
+      --primary-foreground: 240, 100%, 96%;
     /* White for text on blue */
-    --secondary: 200 70% 50%;
-    /* Light blue */
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --tertiary: 243, 28.57%, 24.71%;
-    /* Dark text on secondary */
+    --secondary: 221, 9%, 64%;
+      /* Updated to secondary color (#949da6) */
+      --secondary-foreground: 221, 9%, 15%;
+      --tertiary: 151, 100%, 95%;
+      /* Updated to tertiary color (#f0fdf8) */
     --muted: 210 30% 96%;
     /* Light muted gray */
     --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 200 70% 50%;
+    --accent: 221, 9%, 64%;
     /* Accent color same as secondary */
-    --accent-foreground: 210 40% 98%;
+    --accent-foreground: 240, 100%, 96%;
     /* White on accent */
     --destructive: 0 84.2% 60.2%;
     /* Bright red for alerts */
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 240, 100%, 96%;
     /* White text on red */
     --border: 214.3 31.8% 91.4%;
     /* Light gray for borders */
     --input: 214.3 31.8% 91.4%;
     /* Same as border for inputs */
-    --ring: 210 90% 46%;
-    /* Blue ring for focus */
+    --ring: 240, 100%, 22%;
+      /* Updated blue ring */
     --chart-1: 12 76% 61%;
     /* Colors for charts */
     --chart-2: 173 58% 39%;
@@ -63,47 +55,46 @@
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
     /* Rounded corners */
-    --heading-default-color: 243, 28.57%, 24.71%;
-    --secondary-bg-color: 241, 86.54%, 20.39%;
+    --heading-default-color: 240, 100%, 22%;
+      /* Updated to primary color (#090761) */
+      --secondary-bg-color: 221, 9%, 64%;
   }
 
   .dark {
-    --background: 220 50% 15%;
-    /* Dark blue for dark mode */
-    --foreground: 210, 10%, 70%;
+    --background: 240, 100%, 12%;
+      /* Adjusted for dark mode */
+      --foreground: 221, 9%, 70%;
+      /* Light text color */
+      --card: 240, 100%, 16%;
+      /* Slightly lighter for cards */
+      --card-foreground: 221, 9%, 70%;
+      --popover: 240, 100%, 16%;
+      --popover-foreground: 221, 9%, 70%;
+      --primary: 240, 100%, 22%;
+      /* Consistent deeper blue */
+      --primary-foreground: 221, 9%, 70%;
     /* Light text */
-    --card: 220 50% 20%;
-    /* Slightly lighter blue for cards */
-    --card-foreground: 210, 10%, 70%;
-    --popover: 220 50% 20%;
-    --popover-foreground: 210, 10%, 70%;
-    --primary: 210 90% 46%;
-    /* Same deeper blue for dark mode */
-    --primary-foreground: 210, 10%, 70%;
-    /* White on primary */
-    --secondary: 200 70% 50%;
-    /* Light blue */
-    --secondary-foreground: 210, 10%, 70%;
-    /* White on secondary */
-    --muted: 220 30% 20%;
+    --secondary: 221, 9%, 64%;
+      --secondary-foreground: 221, 9%, 70%;
+      --muted: 240, 100%, 14%;
     /* Muted dark gray */
-    --muted-foreground: 215.4 16.3% 60.9%;
-    --accent: 200 70% 50%;
+    --muted-foreground: 221, 9%, 60.9%;
+      --accent: 221, 9%, 64%;
     /* Accent color */
-    --accent-foreground: 210, 10%, 70%;
+    --accent-foreground: 221, 9%, 70%;
     --destructive: 0 62.8% 30.6%;
     /* Dark red for alerts */
-    --destructive-foreground: 210, 10%, 70%;
-    --border: 217.2 32.6% 17.5%;
-    /* Dark gray for borders */
-    --input: 217.2 32.6% 17.5%;
-    --ring: 210 90% 46%;
+    --destructive-foreground: 221, 9%, 70%;
+      --border: 221, 9%, 20%;
+      /* Darker gray for borders */
+      --input: 221, 9%, 20%;
+      --ring: 240, 100%, 22%;
     /* Deeper blue ring */
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --chart-1: 240, 70%, 50%;
+      --chart-2: 160, 60%, 45%;
+      --chart-3: 30, 80%, 55%;
+      --chart-4: 280, 65%, 60%;
+      --chart-5: 340, 75%, 55%;
   }
 }
 

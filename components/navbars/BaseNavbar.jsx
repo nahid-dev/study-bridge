@@ -18,7 +18,7 @@ const navItems = [
 
 const BaseNavbar = () => {
   const pathName = usePathname();
-  const [isLoginSidebarOpen, setIsLoginSidebarOpen] = useState(true);
+  const [isLoginSidebarOpen, setIsLoginSidebarOpen] = useState(false);
 
   return (
     <div className="bg-gray-100">
