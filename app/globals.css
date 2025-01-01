@@ -14,7 +14,7 @@
   :root {
     --background: 0 0% 98%;
     /* Soft white for light mode */
-    --foreground: 221, 9%, 64%;
+    --foreground: 221, 9%, 50%;
       /* Updated to secondary color (#949da6) */
     --card: 0 0% 100%;
     /* Pure white for cards */

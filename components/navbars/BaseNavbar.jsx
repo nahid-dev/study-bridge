@@ -7,7 +7,7 @@ import Link from "next/link";
 import { ShoppingBag, UserCircleIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 import RightSideDrawer from "../sidebars/RightSideDrawer";
-import LoginModal from "../modals/LoginModal";
+import AuthenticationDrawer from "../modals/AuthenticationDrawer";
 
 const navItems = [
   { title: "Home", href: "/" },
@@ -53,7 +53,7 @@ const BaseNavbar = () => {
         isOpen={isLoginSidebarOpen}
         setIsOpen={setIsLoginSidebarOpen}
       >
-        <LoginModal setIsOpen={setIsLoginSidebarOpen} />
+        <AuthenticationDrawer setIsOpen={setIsLoginSidebarOpen} />
       </RightSideDrawer>
     </div>
   );

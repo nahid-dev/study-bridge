@@ -4,10 +4,38 @@ import React from "react";
 import TextInputField from "../forms/TextInputField";
 import PasswordInputField from "../forms/PasswordInputField";
 import { Button } from "../ui/button";
+import { motion } from "framer-motion";
 
-const LoginModal = ({ setIsOpen }) => {
+const LoginSection = ({
+  setIsOpen,
+  isOpenSignUpDrawer,
+  setIsOpenSignUpDrawer,
+}) => {
+  const loginSectionVariants = {
+    open: {
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 300,
+        damping: 30,
+      },
+    },
+    close: {
+      y: "100%",
+      transition: {
+        type: "spring",
+        stiffness: 300,
+        damping: 30,
+      },
+    },
+  };
   return (
-    <div className="flex flex-col gap-7">
+    <motion.div
+      initial="close"
+      animate={!isOpenSignUpDrawer ? "open" : "close"}
+      variants={loginSectionVariants}
+      className="flex flex-col gap-7"
+    >
       <header className="flex items-center justify-between">
         <h4 className="text-lg font-medium">
           Log In To Your StudyBridge Account!
@@ -42,11 +70,19 @@ const LoginModal = ({ setIsOpen }) => {
       <div>
         <p className="text-sm text-center">
           Don't have an account?{" "}
-          <span className="underline text-primary cursor-pointer">Sign up</span>
+          <span
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsOpenSignUpDrawer(true);
+            }}
+            className="underline text-primary cursor-pointer"
+          >
+            Sign up
+          </span>
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
-export default LoginModal;
+export default LoginSection;
