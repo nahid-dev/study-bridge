@@ -4,10 +4,11 @@ import React, { useState } from "react";
 import MainLogo from "../MainLogo";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import { ShoppingBag, UserCircleIcon } from "lucide-react";
+import { Menu, ShoppingBag, UserCircleIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 import RightSideDrawer from "../sidebars/RightSideDrawer";
 import AuthenticationDrawer from "../modals/AuthenticationDrawer";
+import MobileNavbar from "./MobileNavbar";
 
 const navItems = [
   { title: "Home", href: "/" },
@@ -19,15 +20,16 @@ const navItems = [
 const BaseNavbar = () => {
   const pathName = usePathname();
   const [isLoginSidebarOpen, setIsLoginSidebarOpen] = useState(false);
+  const [isOpenMobileMenu, setOpenMobileMenu] = useState(false);
 
   return (
     <div className="bg-gray-100">
       <Container>
-        <div className="py-3 flex items-center justify-between">
+        <div className="py-5 flex items-center justify-between">
           <div>
             <MainLogo />
           </div>
-          <div>
+          <div className="hidden sm:block">
             <ul>
               {navItems.map((item) => (
                 <li key={item.title} className="inline-block mx-4 ">
@@ -46,6 +48,12 @@ const BaseNavbar = () => {
             />
             <ShoppingBag className="size-6" />
           </div>
+          <div className="block sm:hidden">
+            <Menu
+              onClick={() => setOpenMobileMenu(true)}
+              className="size-6 cursor-pointer"
+            />
+          </div>
         </div>
       </Container>
 
@@ -54,6 +62,13 @@ const BaseNavbar = () => {
         setIsOpen={setIsLoginSidebarOpen}
       >
         <AuthenticationDrawer setIsOpen={setIsLoginSidebarOpen} />
+      </RightSideDrawer>
+
+      <RightSideDrawer isOpen={isOpenMobileMenu} setIsOpen={setOpenMobileMenu}>
+        <MobileNavbar
+          navItems={navItems}
+          setOpenMobileMenu={setOpenMobileMenu}
+        />
       </RightSideDrawer>
     </div>
   );

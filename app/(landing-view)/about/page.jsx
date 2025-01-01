@@ -5,7 +5,7 @@ const AboutPage = () => {
   return (
     <div>
       <h2>About us page</h2>
-      <RightSideDrawer />
+      {/* <RightSideDrawer /> */}
     </div>
   );
 };
