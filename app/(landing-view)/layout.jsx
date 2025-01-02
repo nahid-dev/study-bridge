@@ -1,3 +1,4 @@
+import BaseFooter from "@/components/BaseFooter";
 import BaseNavbar from "@/components/navbars/BaseNavbar";
 import React from "react";
 
@@ -6,6 +7,7 @@ const BaseLayout = ({ children }) => {
     <div>
       <BaseNavbar />
       {children}
+      <BaseFooter />
     </div>
   );
 };

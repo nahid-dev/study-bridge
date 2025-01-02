@@ -15,6 +15,18 @@ import "swiper/css/pagination";
 import { EffectFade, Navigation, Pagination } from "swiper/modules";
 import CourseCard from "@/components/cards/CourseCard";
 
+const bestSellers = {
+  title: "Fashion Photography From Professional",
+  tag: "Photography",
+  image: "/images/cards/photo-35.jpg",
+  userImage: "/images/avatar/avatar-1.jpg",
+  rating: 4,
+  lessons: 12,
+  duration: "8min",
+  price: 415.99,
+  discount: 959,
+};
+
 const HeroSection = () => {
   return (
     <div className="h-[calc(100vh-64px)] flex items-center justify-center overflow-hidden">
@@ -36,42 +48,94 @@ const HeroSection = () => {
                 background:
                   "linear-gradient(0deg, rgba(9, 7, 97, .6), rgba(9, 7, 97, .6)), linear-gradient(270deg, #090761 17.76%, rgba(255, 255, 255, 0) 100%)",
               }}
-              className="h-full grid grid-cols-3"
+              className="h-full grid grid-cols-3 lg:px-20"
             >
-              <div className="col-span-2 flex flex-col justify-center mx-auto max-w-4xl">
-                <h1 className="">Self Education Resource And Infos</h1>
+              <div className="col-span-2 flex flex-col justify-center gap-4">
+                <h1 className="text-6xl font-medium text-white">
+                  Self Education Resource And Infos
+                </h1>
                 <p className="capitalize">
                   Technology is bring a massive wave of evaluation on learning
                   things on different ways.
                 </p>
-                <div className="flex gap-4">
-                  <Button>Get Started</Button>
-                  <Button>View Courses</Button>
+                <div className="flex gap-4 w-full">
+                  <Button variant="outline" className="px-10">
+                    Get Started
+                  </Button>
+                  <Button className="px-10 bg-[#146ecf] text-white hover:bg-[#0f5fba]">
+                    View Courses
+                  </Button>
                 </div>
               </div>
-              <div className="col-span-1">
-                <CourseCard />
+              <div className="col-span-1 flex items-center">
+                <CourseCard cardDetails={bestSellers} />
               </div>
             </div>
           </div>
         </SwiperSlide>
         <SwiperSlide>
-          <Image
-            src="/images/covers/cover-4.jpg"
-            width={1440}
-            height={1440}
-            alt="Cover image 2"
-            loading="lazy"
-          />
+          <div className="bg-[url('/images/covers/cover-4.jpg')] h-full">
+            <div
+              style={{
+                background:
+                  "linear-gradient(0deg, rgba(9, 7, 97, .6), rgba(9, 7, 97, .6)), linear-gradient(270deg, #090761 17.76%, rgba(255, 255, 255, 0) 100%)",
+              }}
+              className="h-full grid grid-cols-3 lg:px-20"
+            >
+              <div className="col-span-2 flex flex-col justify-center gap-4">
+                <h1 className="text-6xl font-medium text-white">
+                  Self Education Resource And Infos
+                </h1>
+                <p className="capitalize">
+                  Technology is bring a massive wave of evaluation on learning
+                  things on different ways.
+                </p>
+                <div className="flex gap-4 w-full">
+                  <Button variant="outline" className="px-10">
+                    Get Started
+                  </Button>
+                  <Button className="px-10 bg-[#146ecf] text-white hover:bg-[#0f5fba]">
+                    View Courses
+                  </Button>
+                </div>
+              </div>
+              <div className="col-span-1 flex items-center">
+                <CourseCard cardDetails={bestSellers} />
+              </div>
+            </div>
+          </div>
         </SwiperSlide>
         <SwiperSlide>
-          <Image
-            src="/images/covers/cover-7.jpg"
-            width={1440}
-            height={1440}
-            alt="Cover image 3"
-            loading="lazy"
-          />
+          <div className="bg-[url('/images/covers/cover-7.jpg')] h-full">
+            <div
+              style={{
+                background:
+                  "linear-gradient(0deg, rgba(9, 7, 97, .6), rgba(9, 7, 97, .6)), linear-gradient(270deg, #090761 17.76%, rgba(255, 255, 255, 0) 100%)",
+              }}
+              className="h-full grid grid-cols-3 lg:px-20"
+            >
+              <div className="col-span-2 flex flex-col justify-center gap-4">
+                <h1 className="text-6xl font-medium text-white">
+                  Self Education Resource And Infos
+                </h1>
+                <p className="capitalize">
+                  Technology is bring a massive wave of evaluation on learning
+                  things on different ways.
+                </p>
+                <div className="flex gap-4 w-full">
+                  <Button variant="outline" className="px-10">
+                    Get Started
+                  </Button>
+                  <Button className="px-10 bg-[#146ecf] text-white hover:bg-[#0f5fba]">
+                    View Courses
+                  </Button>
+                </div>
+              </div>
+              <div className="col-span-1 flex items-center">
+                <CourseCard cardDetails={bestSellers} />
+              </div>
+            </div>
+          </div>
         </SwiperSlide>
       </Swiper>
     </div>
