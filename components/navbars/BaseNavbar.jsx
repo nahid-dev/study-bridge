@@ -7,8 +7,9 @@ import Link from "next/link";
 import { Menu, ShoppingBag, UserCircleIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 import RightSideDrawer from "../sidebars/RightSideDrawer";
-import AuthenticationDrawer from "../modals/AuthenticationDrawer";
+import AuthenticationDrawer from "../drawer/AuthenticationDrawer";
 import MobileNavbar from "./MobileNavbar";
+import CartDrawer from "../drawer/CartDrawer";
 
 const navItems = [
   { title: "Home", href: "/" },
@@ -21,6 +22,7 @@ const BaseNavbar = () => {
   const pathName = usePathname();
   const [isLoginSidebarOpen, setIsLoginSidebarOpen] = useState(false);
   const [isOpenMobileMenu, setOpenMobileMenu] = useState(false);
+  const [isOpenCartDrawer, setIsOpenCartDrawer] = useState(false);
 
   return (
     <div className="bg-gray-100">
@@ -44,9 +46,12 @@ const BaseNavbar = () => {
           <div className="flex items-center gap-4">
             <UserCircleIcon
               onClick={() => setIsLoginSidebarOpen((prev) => !prev)}
-              className="size-6 hover:text-primary hover:cursor-pointer"
+              className="size-6 hover:text-primary cursor-pointer"
             />
-            <ShoppingBag className="size-6" />
+            <ShoppingBag
+              onClick={() => setIsOpenCartDrawer(true)}
+              className="size-6 hover:text-primary cursor-pointer"
+            />
           </div>
           <div className="block sm:hidden">
             <Menu
@@ -69,6 +74,12 @@ const BaseNavbar = () => {
           navItems={navItems}
           setOpenMobileMenu={setOpenMobileMenu}
         />
+      </RightSideDrawer>
+      <RightSideDrawer
+        isOpen={isOpenCartDrawer}
+        setIsOpen={setIsOpenCartDrawer}
+      >
+        <CartDrawer setIsOpenCartDrawer={setIsOpenCartDrawer} />
       </RightSideDrawer>
     </div>
   );

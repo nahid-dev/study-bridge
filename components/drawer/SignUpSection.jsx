@@ -6,12 +6,12 @@ import PasswordInputField from "../forms/PasswordInputField";
 import { Button } from "../ui/button";
 import { motion } from "framer-motion";
 
-const LoginSection = ({
+const SignUpSection = ({
   setIsOpen,
   isOpenSignUpDrawer,
   setIsOpenSignUpDrawer,
 }) => {
-  const loginSectionVariants = {
+  const signUpSectionVariant = {
     open: {
       y: 0,
       transition: {
@@ -32,19 +32,26 @@ const LoginSection = ({
   return (
     <motion.div
       initial="close"
-      animate={!isOpenSignUpDrawer ? "open" : "close"}
-      variants={loginSectionVariants}
+      animate={isOpenSignUpDrawer ? "open" : "close"}
+      variants={signUpSectionVariant}
       className="flex flex-col gap-7"
     >
       <header className="flex items-center justify-between">
-        <h4 className="text-lg font-medium">
-          Log In To Your StudyBridge Account!
-        </h4>
-        <span className="p-1 text-tertiary hover:cursor-pointer hover:rotate-90 transition-all duration-300 hover:bg-gray-100 rounded-full">
+        <h4 className="text-lg font-medium">Sign Up And Start Learning!</h4>
+        <span className="p-1 hover:cursor-pointer hover:rotate-90 transition-all duration-300 hover:bg-gray-100 rounded-full">
           <X onClick={() => setIsOpen(false)} className="size-6" />
         </span>
       </header>
       <form className="flex flex-col gap-8">
+        <div>
+          <TextInputField
+            label="Username"
+            id="username"
+            type="text"
+            placeholder="John Doe"
+            onChange={(e) => console.log(e.target.value)}
+          />
+        </div>
         <div>
           <TextInputField
             label="Username or Email"
@@ -64,20 +71,20 @@ const LoginSection = ({
           />
         </div>
         <div>
-          <Button className="w-full">Login</Button>
+          <Button className="w-full">SIGN UP</Button>
         </div>
       </form>
       <div>
         <p className="text-sm text-center">
-          Don't have an account?{" "}
+          Already have an account?{" "}
           <span
             onClick={(e) => {
               e.stopPropagation();
-              setIsOpenSignUpDrawer(true);
+              setIsOpenSignUpDrawer(false);
             }}
             className="underline text-primary cursor-pointer"
           >
-            Sign up
+            Login
           </span>
         </p>
       </div>
@@ -85,4 +92,4 @@ const LoginSection = ({
   );
 };
 
-export default LoginSection;
+export default SignUpSection;

@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import React from "react";
-const INPUT_LABEL_STYLE = "text-tertiary";
+const INPUT_LABEL_STYLE = "";
 const INPUT_BOX_STYLE =
   "px-5 py-4 focus:outline-none w-full rounded appearance-none block focus:border-blue-900 border";
 const ERROR_TEXT_STYLE =

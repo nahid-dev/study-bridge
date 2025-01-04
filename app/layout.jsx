@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "StudyBridge",
+  title: "Learning Language",
   description: "Connecting You to the World of Knowledge.",
 };
 

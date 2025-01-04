@@ -1,3 +1,5 @@
+"use client";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 const companyInfoList = [
@@ -12,11 +14,21 @@ const companyInfoList = [
 const latestCourses = ["Course 1", "Course 2", "Course 3", "Course 4"];
 
 const BaseFooter = () => {
+  const pathName = usePathname();
+  const isLandingView = pathName.split("/")[1] === "";
   return (
-    <div className="bg-primary text-white">
+    <div
+      className={`${
+        isLandingView ? "bg-primary text-white" : "bg-[#f7f9fb]"
+      }  pt-10`}
+    >
       <div className="p-20 grid grid-cols-1 md:grid-cols-3 gap-5">
         <div className="flex flex-col gap-5 text-center">
-          <h5 className="text-xl font-semibold text-white">
+          <h5
+            className={`${
+              isLandingView ? "text-white" : ""
+            } text-xl font-semibold`}
+          >
             Our Latest Courses
           </h5>
           <ul>
@@ -26,7 +38,13 @@ const BaseFooter = () => {
           </ul>
         </div>
         <div className="flex flex-col gap-5 items-center text-center">
-          <h5 className="text-xl font-semibold text-white">Our Social Links</h5>
+          <h5
+            className={`${
+              isLandingView ? "text-white" : ""
+            } text-xl font-semibold`}
+          >
+            Our Social Links
+          </h5>
           <ul className="w-full">
             {latestCourses?.map((item, index) => (
               <li key={index}>{item}</li>
@@ -34,7 +52,11 @@ const BaseFooter = () => {
           </ul>
         </div>
         <div className="flex flex-col gap-5 text-center">
-          <h5 className="text-xl font-semibold text-white">
+          <h5
+            className={`${
+              isLandingView ? "text-white" : ""
+            } text-xl font-semibold`}
+          >
             Our Latest Courses
           </h5>
           <ul>
@@ -44,10 +66,10 @@ const BaseFooter = () => {
           </ul>
         </div>
       </div>
-      <hr className="border" />
+      <hr />
       <div className="flex items-center py-5 mx-auto text-center">
         <p className="w-full">
-          Copyright © 2021 Learning Language. All Right Reserved.
+          Copyright © 2021 Language Learning. All Right Reserved.
         </p>
       </div>
     </div>

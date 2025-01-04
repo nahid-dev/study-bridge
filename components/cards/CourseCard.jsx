@@ -4,7 +4,6 @@ import React from "react";
 import StarRating from "../StarRating";
 
 const CourseCard = ({ cardDetails }) => {
-  console.log(cardDetails);
   return (
     <div className="shadow rounded-md p-2 bg-white cursor-pointer group">
       <div className="space-y-3">
