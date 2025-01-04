@@ -19,8 +19,8 @@ const BaseFooter = () => {
   return (
     <div
       className={`${
-        isLandingView ? "bg-primary text-white" : "bg-[#f7f9fb]"
-      }  pt-10`}
+        isLandingView ? "bg-primary text-white pt-10" : "bg-[#f7f9fb]"
+      }  `}
     >
       <div className="p-20 grid grid-cols-1 md:grid-cols-3 gap-5">
         <div className="flex flex-col gap-5 text-center">

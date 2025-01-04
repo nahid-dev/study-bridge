@@ -2,10 +2,14 @@ import { BookUser, Clock1Icon, Star } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import StarRating from "../StarRating";
+import Link from "next/link";
 
 const CourseCard = ({ cardDetails }) => {
   return (
-    <div className="shadow rounded-md p-2 bg-white cursor-pointer group">
+    <Link
+      href={`/courses/${cardDetails?.uid}`}
+      className="shadow rounded-md p-2 bg-white cursor-pointer group"
+    >
       <div className="space-y-3">
         <div className="relative overflow-hidden rounded-md">
           <Image
@@ -55,7 +59,7 @@ const CourseCard = ({ cardDetails }) => {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
