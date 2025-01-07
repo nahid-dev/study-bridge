@@ -1,12 +1,22 @@
+"use client";
+import APIKit from "@/common/helpers/APIKit";
 import CourseCard from "@/components/cards/CourseCard";
 import Container from "@/components/Container";
 import SectionHeader from "@/components/SectionHeader";
 import { courses } from "@/lib/options";
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
-
-
 const CoursesPage = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["/courses"],
+    queryFn: () => APIKit.public.getCourses().then(({ data }) => data),
+  });
+
+  if (isLoading) {
+    return "Loading...";
+  }
+
   return (
     <div className="mt-20">
       <SectionHeader
@@ -16,8 +26,8 @@ const CoursesPage = () => {
       <div>
         <Container>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 py-10">
-            {courses.map((item, index) => (
-              <CourseCard key={index} cardDetails={item} />
+            {data?.map((course) => (
+              <CourseCard key={course?.uid} cardDetails={course} />
             ))}
           </div>
         </Container>

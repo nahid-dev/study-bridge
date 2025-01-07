@@ -26,6 +26,8 @@ import "swiper/css/pagination";
 
 import { FreeMode, Pagination } from "swiper/modules";
 import CoursePriceInfo from "./components/CoursePriceCard";
+import { useQuery } from "@tanstack/react-query";
+import APIKit from "@/common/helpers/APIKit";
 
 const coursePriceInfo = {
   price: {
@@ -50,8 +52,19 @@ const coursePriceInfo = {
   share: "Share this course",
 };
 
-const CourseDetails = () => {
+const CourseDetails = ({ params }) => {
+  const course_uid = params?.courseUid;
+  console.log(course_uid);
   const [activeTab, setActiveTab] = useState(0);
+  const { data: courseDetails, isLoading } = useQuery({
+    queryKey: ["course-details"],
+    queryFn: () =>
+      APIKit.public.getCourseDetails(course_uid).then(({ data }) => data),
+  });
+  console.log(courseDetails);
+  if (isLoading) {
+    return "Loading...";
+  }
   const tabs = [
     <OverviewTab key="overview" />,
     <CurriculumTab key="curriculum" />,
@@ -88,7 +101,7 @@ const CourseDetails = () => {
             <div className="flex flex-col gap-5">
               <div className="flex items-start justify-between">
                 <h4 className="text-3xl font-medium w-full">
-                  Learn Figma: User Interface Design Essentials - UI/UX Design
+                  {courseDetails?.title}
                 </h4>
                 <div className="bg-black/10 p-2 rounded-full inline-block">
                   <Heart className="size-4" strokeWidth={1} />

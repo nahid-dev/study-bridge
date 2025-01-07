@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
+import { toggleBodyScroll } from "@/common/helpers/UtilKit";
 
 const RightSideDrawer = ({ isOpen, setIsOpen, children }) => {
   const sidebarVariants = {
@@ -20,6 +21,15 @@ const RightSideDrawer = ({ isOpen, setIsOpen, children }) => {
       },
     },
   };
+
+  useEffect(() => {
+    toggleBodyScroll(isOpen);
+
+    // Cleanup when the component is unmounted
+    return () => {
+      toggleBodyScroll(false);
+    };
+  }, [isOpen]);
   return (
     <>
       {/* BACKDROP */}
@@ -38,7 +48,7 @@ const RightSideDrawer = ({ isOpen, setIsOpen, children }) => {
         initial="close"
         animate={isOpen ? "open" : "close"}
         variants={sidebarVariants}
-        className="fixed top-0 right-0 h-full bg-white shadow-lg z-50 max-w-md w-full p-10"
+        className="fixed top-0 right-0 h-full bg-white shadow-lg z-50 max-w-md w-full p-10 overflow-y-auto"
       >
         <div>{children}</div>
       </motion.div>

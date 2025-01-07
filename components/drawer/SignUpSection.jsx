@@ -5,6 +5,17 @@ import TextInputField from "../forms/TextInputField";
 import PasswordInputField from "../forms/PasswordInputField";
 import { Button } from "../ui/button";
 import { motion } from "framer-motion";
+import { useFormik } from "formik";
+import { object, string } from "yup";
+import APIKit from "@/common/helpers/APIKit";
+import toast from "react-hot-toast";
+
+const signUPValidationSchema = object({
+  first_name: string().required("First name is required"),
+  last_name: string().required("Last name is required"),
+  email: string().required("Email is required"),
+  password: string().required("Password is required"),
+});
 
 const SignUpSection = ({
   setIsOpen,
@@ -29,6 +40,34 @@ const SignUpSection = ({
       },
     },
   };
+  const initialValues = {
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    confirm_password: "",
+  };
+  const formik = useFormik({
+    initialValues: initialValues,
+    validationSchema: signUPValidationSchema,
+    onSubmit: (values) => {
+      const handleSuccess = ({ data }) => {
+        toast.success("Signed up successfully!");
+        router.push("/");
+        // setLoading(false);
+      };
+
+      const handleFailure = (error) => {
+        // setLoading(false);
+        toast.error(
+          error?.response?.data?.email?.details ||
+            "There was a problem signing in. Please try again later!"
+        );
+      };
+
+      APIKit.auth.register(values).then(handleSuccess).catch(handleFailure);
+    },
+  });
   return (
     <motion.div
       initial="close"
@@ -42,23 +81,38 @@ const SignUpSection = ({
           <X onClick={() => setIsOpen(false)} className="size-6" />
         </span>
       </header>
-      <form className="flex flex-col gap-8">
+      <form onSubmit={formik.handleSubmit} className="flex flex-col gap-8">
         <div>
           <TextInputField
-            label="Username"
-            id="username"
+            label="First Name"
+            id="first_name"
+            name="first_name"
             type="text"
-            placeholder="John Doe"
-            onChange={(e) => console.log(e.target.value)}
+            placeholder="e,g. John"
+            value={formik.values.first_name}
+            onChange={formik.handleChange}
           />
         </div>
         <div>
           <TextInputField
-            label="Username or Email"
+            label="Last Name"
+            id="last_name"
+            name="last_name"
+            type="text"
+            placeholder="e,g. Doe"
+            value={formik.values.last_name}
+            onChange={formik.handleChange}
+          />
+        </div>
+        <div>
+          <TextInputField
+            label="Email"
             id="email"
+            name="email"
             type="email"
-            placeholder="example@mail.com"
-            onChange={(e) => console.log(e.target.value)}
+            placeholder="e,g. example@mail.com"
+            value={formik.values.email}
+            onChange={formik.handleChange}
           />
         </div>
         <div>
@@ -67,11 +121,33 @@ const SignUpSection = ({
             id="password"
             name="password"
             placeholder="*******"
-            onChange={(e) => console.log(e.target.value)}
+            value={formik.values.password}
+            onChange={formik.handleChange}
           />
         </div>
         <div>
-          <Button className="w-full">SIGN UP</Button>
+          <PasswordInputField
+            label="Confirm Password"
+            id="confirm_password"
+            name="confirm_password"
+            placeholder="*******"
+            value={formik.values.confirm_password}
+            onChange={formik.handleChange}
+          />
+        </div>
+        {/* <div>
+          <PasswordInputField
+            label="Confirm Password"
+            id="password"
+            name="password"
+            placeholder="*******"
+            onChange={(e) => console.log(e.target.value)}
+          />
+        </div> */}
+        <div>
+          <Button type="submit" className="w-full">
+            SIGN UP
+          </Button>
         </div>
       </form>
       <div>
