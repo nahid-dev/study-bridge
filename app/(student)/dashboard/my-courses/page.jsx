@@ -1,11 +1,15 @@
+"use client";
 import Container from "@/components/Container";
 import { Button } from "@/components/ui/button";
 import { Clock } from "lucide-react";
+import { inject, observer } from "mobx-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const MyCourses = () => {
+const MyCourses = ({ meStore }) => {
+  const { me } = meStore;
+  console.log(meStore);
   return (
     <div className="my-10">
       <Container>
@@ -46,4 +50,4 @@ const MyCourses = () => {
   );
 };
 
-export default MyCourses;
+export default inject("meStore")(observer(MyCourses));

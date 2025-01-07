@@ -9,6 +9,9 @@ import { useFormik } from "formik";
 import { object, string } from "yup";
 import APIKit from "@/common/helpers/APIKit";
 import toast from "react-hot-toast";
+import FormikErrorBox from "../forms/FormikErrorBox";
+import { setJWTTokenAndRedirect } from "../StudentAuthGuardHOC";
+import { useRouter } from "next/navigation";
 
 const signUPValidationSchema = object({
   first_name: string().required("First name is required"),
@@ -22,6 +25,7 @@ const SignUpSection = ({
   isOpenSignUpDrawer,
   setIsOpenSignUpDrawer,
 }) => {
+  const router = useRouter();
   const signUpSectionVariant = {
     open: {
       y: 0,
@@ -50,24 +54,44 @@ const SignUpSection = ({
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: signUPValidationSchema,
-    onSubmit: (values) => {
+
+    onSubmit: (values, { setSubmitting }) => {
+      setSubmitting(true);
+
       const handleSuccess = ({ data }) => {
-        toast.success("Signed up successfully!");
-        router.push("/");
-        // setLoading(false);
+        console.log("HandleSuccess triggered:", data);
+        setJWTTokenAndRedirect(data?.token?.access, () => {
+          router.push("/dashboard/my-courses");
+          setIsOpen(false);
+        });
       };
 
       const handleFailure = (error) => {
-        // setLoading(false);
-        toast.error(
-          error?.response?.data?.email?.details ||
-            "There was a problem signing in. Please try again later!"
-        );
+        console.error("HandleFailure triggered:", error);
+        toast.error("Something went wrong!");
       };
 
-      APIKit.auth.register(values).then(handleSuccess).catch(handleFailure);
+      const promise = APIKit.auth
+        .register(values)
+        .then((response) => {
+          // toast.success("Singed up successfully!");
+          // setIsOpenSignUpDrawer(false);
+          handleSuccess(response);
+        })
+        .catch((error) => {
+          toast.error("Failed to sign up");
+          handleFailure(error);
+        })
+        .finally(() => {
+          setSubmitting(false);
+          toast.dismiss();
+        });
+
+      toast.loading("Signing up...");
+      return promise;
     },
   });
+
   return (
     <motion.div
       initial="close"
@@ -92,6 +116,7 @@ const SignUpSection = ({
             value={formik.values.first_name}
             onChange={formik.handleChange}
           />
+          <FormikErrorBox formik={formik} field="first_name" />
         </div>
         <div>
           <TextInputField
@@ -103,6 +128,7 @@ const SignUpSection = ({
             value={formik.values.last_name}
             onChange={formik.handleChange}
           />
+          <FormikErrorBox formik={formik} field="last_name" />
         </div>
         <div>
           <TextInputField
@@ -114,6 +140,7 @@ const SignUpSection = ({
             value={formik.values.email}
             onChange={formik.handleChange}
           />
+          <FormikErrorBox formik={formik} field="email" />
         </div>
         <div>
           <PasswordInputField
@@ -124,6 +151,7 @@ const SignUpSection = ({
             value={formik.values.password}
             onChange={formik.handleChange}
           />
+          <FormikErrorBox formik={formik} field="password" />
         </div>
         <div>
           <PasswordInputField
@@ -134,6 +162,7 @@ const SignUpSection = ({
             value={formik.values.confirm_password}
             onChange={formik.handleChange}
           />
+          <FormikErrorBox formik={formik} field="confirm_password" />
         </div>
         {/* <div>
           <PasswordInputField

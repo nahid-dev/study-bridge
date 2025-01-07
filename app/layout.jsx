@@ -1,5 +1,7 @@
 import TanstackProvider from "@/components/providers/TanstackProvider";
 import "./globals.css";
+import Toast from "@/components/Toast";
+import MobxProvider from "@/components/providers/MobxProvider";
 
 export const metadata = {
   title: "Language learning",
@@ -10,9 +12,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`antialiased`}>
-        <TanstackProvider>
-          <main>{children}</main>
-        </TanstackProvider>
+        <MobxProvider>
+          <TanstackProvider>
+            <Toast />
+            <main>{children}</main>
+          </TanstackProvider>
+        </MobxProvider>
       </body>
     </html>
   );

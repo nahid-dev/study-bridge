@@ -15,19 +15,13 @@ import OverviewTab from "./components/OverviewTab";
 import CurriculumTab from "./components/CurriculumTab";
 import ReviewsTab from "./components/ReviewsTab";
 import SectionHeader from "@/components/SectionHeader";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { courses } from "@/lib/options";
-import CourseCard from "@/components/cards/CourseCard";
 
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/free-mode";
-import "swiper/css/pagination";
 
-import { FreeMode, Pagination } from "swiper/modules";
+
 import CoursePriceInfo from "./components/CoursePriceCard";
 import { useQuery } from "@tanstack/react-query";
 import APIKit from "@/common/helpers/APIKit";
+import RelatedCourseSection from "./components/RelatedCourseSection";
 
 const coursePriceInfo = {
   price: {
@@ -54,21 +48,27 @@ const coursePriceInfo = {
 
 const CourseDetails = ({ params }) => {
   const course_uid = params?.courseUid;
-  console.log(course_uid);
   const [activeTab, setActiveTab] = useState(0);
+
   const { data: courseDetails, isLoading } = useQuery({
     queryKey: ["course-details"],
     queryFn: () =>
       APIKit.public.getCourseDetails(course_uid).then(({ data }) => data),
   });
-  console.log(courseDetails);
+
+  const {
+    coursedetail = {},
+    created_by = {},
+    category = {},
+  } = courseDetails || {};
+
   if (isLoading) {
     return "Loading...";
   }
   const tabs = [
-    <OverviewTab key="overview" />,
-    <CurriculumTab key="curriculum" />,
-    // <ReviewsTab key="reviews" />,
+    <OverviewTab key="overview" courseDetails={courseDetails} />,
+    <CurriculumTab key="curriculum" course_uid={course_uid} />,
+    <ReviewsTab key="reviews" course_uid={course_uid} />,
   ];
   return (
     <div className="py-5">
@@ -108,15 +108,14 @@ const CourseDetails = ({ params }) => {
                 </div>
               </div>
               <p className="text-lg">
-                Master Figma app to get a job in UI Design, User Interface, User
-                Experience design, Web Design & UX design.
+                {coursedetail?.description.split(" ").slice(0, 20).join(" ")}
               </p>
             </div>
             {/* USER INFO */}
             <div className="flex items-center justify-normal gap-3">
               <div className="border rounded-full p-2">
                 <Image
-                  src="/images/avatar/avatar-1.jpg"
+                  src={created_by?.photo_url || "/images/avatar/avatar-1.jpg"}
                   width={68}
                   height={68}
                   alt="User Image"
@@ -125,29 +124,31 @@ const CourseDetails = ({ params }) => {
               </div>
               <div className="flex flex-col gap-1">
                 <h6 className="font-medium">Created by</h6>
-                <p>Alison down</p>
+                <p>
+                  {created_by?.first_name} {created_by?.last_name}
+                </p>
               </div>
               <div className="flex flex-col gap-1">
                 <h6 className="font-medium">Categories</h6>
-                <p>Design</p>
+                <p>{category?.name || "No category"}</p>
               </div>
             </div>
             {/* COURSE VIDEO */}
             <div className="relative overflow-hidden rounded-md">
-              {/* <video
-                src="/images/products/product-1.jpg"
+              <video
+                src={courseDetails?.video_url}
                 className="w-full rounded-md"
-              ></video> */}
-              <Image
+              ></video>
+              {/* <Image
                 src="/images/products/product-3.jpg"
                 width={2500}
                 height={2490}
                 alt="Course Image"
                 className="rounded-md"
-              />
-              <div className="bg-white p-2 rounded-full inline-block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer">
+              /> */}
+              {/* <div className="bg-white p-2 rounded-full inline-block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer">
                 <Play strokeWidth={1} className="size-10" />
-              </div>
+              </div> */}
             </div>
             {/* COURSE DESCRIPTION */}
             <div className="flex flex-col gap-5">
@@ -169,21 +170,22 @@ const CourseDetails = ({ params }) => {
                 >
                   Curriculum
                 </button>
-                {/* <button
+                <button
                   onClick={() => setActiveTab(2)}
                   className={`${
                     activeTab === 2 ? " bg-[#4a8f9f] text-white " : ""
                   } text-xl font-medium px-4 py-2 rounded-md transition-all duration-300`}
                 >
                   Reviews
-                </button> */}
+                </button>
               </div>
               {/* TAB CONTENT */}
               <div>{tabs[activeTab]}</div>
             </div>
           </div>
+          {/* RIGHT SIDE */}
           <div className="col-span-1">
-            <CoursePriceInfo data={coursePriceInfo} />
+            <CoursePriceInfo courseDetails={courseDetails} />
           </div>
         </div>
         {/* RELATED COURSES */}
@@ -192,25 +194,7 @@ const CourseDetails = ({ params }) => {
             title="Related Courses"
             helperText="Discover your perfect program in our courses."
           />
-          <div>
-            <Swiper
-              slidesPerView={4}
-              spaceBetween={30}
-              freeMode={true}
-              loop={true}
-              pagination={{
-                clickable: true,
-              }}
-              modules={[FreeMode, Pagination]}
-              className="mySwiper"
-            >
-              {courses.map((item, index) => (
-                <SwiperSlide key={index}>
-                  <CourseCard cardDetails={item} />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
+          <RelatedCourseSection categoryName={category?.name } />
         </div>
       </Container>
     </div>

@@ -1,8 +1,9 @@
 import { FileText, Minus, Play, Plus } from "lucide-react";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { formatDuration } from "@/common/helpers/UtilKit";
 
-const CollapsableCard = () => {
+const CollapsableCard = ({ curriculum }) => {
   const [isExpend, setIsExpend] = useState(false);
 
   return (
@@ -18,7 +19,7 @@ const CollapsableCard = () => {
           ) : (
             <Plus className="text-gray-700" />
           )}
-          <span className="text-gray-700 text-lg">Introduction</span>
+          <span className="text-gray-700 text-lg">{curriculum?.title}</span>
         </div>
       </div>
 
@@ -32,25 +33,33 @@ const CollapsableCard = () => {
             transition={{ duration: 0.4, ease: "easeInOut" }}
             style={{ overflow: "hidden" }}
           >
-            <div className="border p-5 bg-gray-50 flex items-center">
-              <div className="w-1/2 flex items-center justify-start gap-2">
-                <div>
-                  <FileText strokeWidth={1} className="size-4 w-fit" />
+            {curriculum?.courselessonlecture_set?.map((item) => (
+              <div
+                key={item?.uid}
+                className="border p-5 bg-gray-50 flex items-center"
+              >
+                <div className="w-1/2 flex items-center justify-start gap-2">
+                  <div>
+                    <FileText strokeWidth={1} className="size-4 w-fit" />
+                  </div>
+                  <p>{item?.title}</p>
                 </div>
-                <p>Introduction to the course</p>
+                <div className="w-1/2 flex items-center justify-end gap-5">
+                  {/* <span className="text-sm font-light bg-[#ffe9d1] rounded px-2 py-1">
+                    3 questions
+                  </span> */}
+                  {item?.duration ? (
+                    <span className="text-sm font-light bg-[#e8f0fa] rounded px-2 py-1">
+                      {formatDuration(item?.duration)}
+                    </span>
+                  ) : null}
+
+                  <span>
+                    <Play strokeWidth={1} className="size-5" />
+                  </span>
+                </div>
               </div>
-              <div className="w-1/2 flex items-center justify-end gap-5">
-                <span className="text-sm font-light bg-[#ffe9d1] rounded px-2 py-1">
-                  3 questions
-                </span>
-                <span className="text-sm font-light bg-[#e8f0fa] rounded px-2 py-1">
-                  30 min
-                </span>
-                <span>
-                  <Play strokeWidth={1} className="size-5" />
-                </span>
-              </div>
-            </div>
+            ))}
           </motion.div>
         )}
       </AnimatePresence>
