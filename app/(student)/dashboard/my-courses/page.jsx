@@ -1,6 +1,8 @@
 "use client";
+import APIKit from "@/common/helpers/APIKit";
 import Container from "@/components/Container";
 import { Button } from "@/components/ui/button";
+import { useQuery } from "@tanstack/react-query";
 import { Clock } from "lucide-react";
 import { inject, observer } from "mobx-react";
 import Image from "next/image";
@@ -9,7 +11,11 @@ import React from "react";
 
 const MyCourses = ({ meStore }) => {
   const { me } = meStore;
-  console.log(meStore);
+  const { data } = useQuery({
+    queryKey: ["my-courses"],
+    queryFn: () => APIKit.student.getMyCourses().then(({ data }) => data),
+  });
+  console.log(data);
   return (
     <div className="my-10">
       <Container>

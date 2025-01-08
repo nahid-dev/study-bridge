@@ -1,10 +1,36 @@
 "use client";
 import Container from "@/components/Container";
 import SectionHeader from "@/components/SectionHeader";
-import React from "react";
+import React, { useState } from "react";
 import LesionCard from "./components/LesionCard";
+import APIKit from "@/common/helpers/APIKit";
+import toast from "react-hot-toast";
+import QuizSection from "./components/QuizSection";
 
-const ContinueCourseDetails = () => {
+const ContinueCourseDetails = ({ params }) => {
+  const course_uid = params.uid;
+  const [selectedLecture, setSelectedLecture] = useState(null);
+  const [showQuiz, setShowQuiz] = useState(false);
+
+  const handleLectureComplete = (e, lesionUid = "123") => {
+    const payload = {
+      is_completed: e,
+    };
+    if (e) {
+      APIKit.student
+        .postLectureComplete(course_uid, lesionUid, payload)
+        .then(() => {
+          toast.success("Lesion completed");
+        })
+        .catch((error) => {
+          throw error;
+        });
+    }
+  };
+
+  const handleStartQuiz = () => {
+    setShowQuiz(true);
+  };
   return (
     <div className="py-5">
       <SectionHeader customClassName="items-start" title="Course title" />
@@ -12,26 +38,24 @@ const ContinueCourseDetails = () => {
         <div className="py-50 grid grid-cols-3 gap-5">
           {/* sidebar */}
           <div className="p-3 border rounded-md bg-gray-100 col-span-1">
-            <LesionCard />
+            <LesionCard
+              handleLectureComplete={handleLectureComplete}
+              handleStartQuiz={handleStartQuiz}
+              setSelectedLecture={setSelectedLecture}
+            />
           </div>
           {/* video */}
           <div className="col-span-2">
-            {/* <video
-              className="w-full"
-              src="https://youtu.be/D0UnqGm_miA?si=1SvEIjgVKjhl9b1V"
-              controls
-            ></video> */}
-            <iframe
-              width="560"
-              height="315"
-              src="https://www.youtube.com/embed/D0UnqGm_miA?si=1SvEIjgVKjhl9b1V"
-              title="YouTube video player"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerpolicy="strict-origin-when-cross-origin"
-              allowfullscreen
-              className="w-full"
-            ></iframe>
+            {!showQuiz ? (
+              <video
+                className="w-full"
+                src={selectedLecture?.videoUrl || ""}
+                controls
+                autoPlay
+              ></video>
+            ) : (
+              <QuizSection />
+            )}
           </div>
         </div>
       </Container>

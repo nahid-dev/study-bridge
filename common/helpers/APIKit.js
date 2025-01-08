@@ -35,10 +35,6 @@ const APIKit = {
       const url = `/courses/${course_uid}/curriculum`;
       return client.get(url);
     },
-    getCourseContinue: (course_uid) => {
-      const url = `/courses/${course_uid}/continue`;
-      return client.get(url);
-    },
     getCourseReviews: (course_uid) => {
       const url = `/courses/${course_uid}/reviews`;
       return client.get(url);
@@ -46,6 +42,20 @@ const APIKit = {
     postEnrollCourse: (course_uid) => {
       const url = `/courses/${course_uid}/enrollment`;
       return client.post(url);
+    },
+  },
+  student: {
+    getCourseContinue: (course_uid) => {
+      const url = `/courses/${course_uid}/continue`;
+      return client.get(url);
+    },
+    getMyCourses: () => {
+      const url = "/me/courses";
+      return client.get(url);
+    },
+    postLectureComplete: (course_uid, lecture_uid, payload) => {
+      const url = `/courses/${course_uid}/lecture/${lecture_uid}/lecture-complete`;
+      return client.post(url, payload);
     },
   },
 };

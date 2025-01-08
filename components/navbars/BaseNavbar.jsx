@@ -99,10 +99,10 @@ const BaseNavbar = () => {
               />
             )}
 
-            <ShoppingBag
+            {/* <ShoppingBag
               onClick={() => setIsOpenCartDrawer(true)}
               className="size-6 hover:text-primary cursor-pointer"
-            />
+            /> */}
           </div>
           <div className="block sm:hidden">
             <Menu

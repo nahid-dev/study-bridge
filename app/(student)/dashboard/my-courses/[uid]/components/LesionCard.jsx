@@ -1,8 +1,14 @@
 import { Minus, Plus } from "lucide-react";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
 
-const LesionCard = () => {
+const LesionCard = ({
+  handleLectureComplete,
+  handleStartQuiz,
+  setSelectedLecture,
+}) => {
   const [isExpendLesion, setIsExpendLesion] = useState(false);
   return (
     <div>
@@ -33,12 +39,35 @@ const LesionCard = () => {
             style={{ overflow: "hidden" }}
             className="border p-2 mt-3"
           >
-            <div className="flex flex-col gap-3">
-              {[...Array(5)].map((_, index) => (
-                <p className="font-medium text-lg p-2 bg-white cursor-pointer">
-                  Video {index + 1}
-                </p>
-              ))}
+            <div>
+              <div className="flex flex-col gap-3">
+                {[...Array(5)].map((_, index) => (
+                  <p
+                    onClick={() => setSelectedLecture(lecture)}
+                    key={index}
+                    className="font-medium text-lg p-2 bg-white cursor-pointer"
+                  >
+                    Lecture {index + 1}
+                  </p>
+                ))}
+              </div>
+              <div className="flex items-center space-x-2 mt-2">
+                <Checkbox
+                  onCheckedChange={(e) => handleLectureComplete(e)}
+                  id="terms"
+                />
+                <label
+                  htmlFor="terms"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Complete lesion
+                </label>
+              </div>
+              <div className="my-2">
+                <Button onClick={handleStartQuiz} className="w-full" size="sm">
+                  Start quiz
+                </Button>
+              </div>
             </div>
           </motion.div>
         )}
