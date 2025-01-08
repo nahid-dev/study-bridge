@@ -1,11 +1,12 @@
+"use client";
+import SectionHeader from "@/components/SectionHeader";
 import RightSideDrawer from "@/components/sidebars/RightSideDrawer";
 import React from "react";
 
 const AboutPage = () => {
   return (
     <div>
-      <h2>About us page</h2>
-      {/* <RightSideDrawer /> */}
+      <SectionHeader title="About Page" helperText="This is About us page." />
     </div>
   );
 };

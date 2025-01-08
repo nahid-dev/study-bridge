@@ -8,8 +8,12 @@ const LesionCard = ({
   handleLectureComplete,
   handleStartQuiz,
   setSelectedLecture,
+  lesionData,
+  showQuizResult,
 }) => {
   const [isExpendLesion, setIsExpendLesion] = useState(false);
+
+  const { courselessonlecture_set = [] } = lesionData || {};
   return (
     <div>
       <div
@@ -17,7 +21,7 @@ const LesionCard = ({
         className="flex items-center justify-between cursor-pointer p-2 shadow border rounded-md"
       >
         <div className="w-full">
-          <h4 className="text-lg font-semibold">Lesion 1</h4>
+          <h4 className="text-lg font-semibold">{lesionData?.title}</h4>
         </div>
         {isExpendLesion ? (
           <div>
@@ -41,17 +45,18 @@ const LesionCard = ({
           >
             <div>
               <div className="flex flex-col gap-3">
-                {[...Array(5)].map((_, index) => (
+                {courselessonlecture_set?.map((item) => (
                   <p
-                    onClick={() => setSelectedLecture(lecture)}
-                    key={index}
+                    // onClick={() => setSelectedLecture(lecture)}
+                    onClick={() => handleLectureComplete(item)}
+                    key={item?.uid}
                     className="font-medium text-lg p-2 bg-white cursor-pointer"
                   >
-                    Lecture {index + 1}
+                    {item?.title}
                   </p>
                 ))}
               </div>
-              <div className="flex items-center space-x-2 mt-2">
+              {/* <div className="flex items-center space-x-2 mt-2">
                 <Checkbox
                   onCheckedChange={(e) => handleLectureComplete(e)}
                   id="terms"
@@ -62,11 +67,25 @@ const LesionCard = ({
                 >
                   Complete lesion
                 </label>
-              </div>
+              </div> */}
               <div className="my-2">
-                <Button onClick={handleStartQuiz} className="w-full" size="sm">
-                  Start quiz
-                </Button>
+                {lesionData?.is_quiz_completed ? (
+                  <Button
+                    onClick={() => showQuizResult(lesionData?.uid)}
+                    className="w-full"
+                    size="sm"
+                  >
+                    Show result
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={() => handleStartQuiz(lesionData?.uid)}
+                    className="w-full"
+                    size="sm"
+                  >
+                    Start quiz
+                  </Button>
+                )}
               </div>
             </div>
           </motion.div>

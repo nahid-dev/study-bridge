@@ -3,8 +3,7 @@ import APIKit from "@/common/helpers/APIKit";
 import HTTPKit from "@/common/helpers/HTTPKits";
 import { AUTH_TOKEN_KEY } from "@/common/helpers/KeyChain";
 import { inject, observer } from "mobx-react";
-import { usePathname, useSearchParams } from "next/navigation";
-import { useRouter } from "next/router";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export const setJWTTokenAndRedirect = (token, redirector = () => {}) => {
@@ -35,7 +34,7 @@ function StudentAuthGuardHOC(props) {
     meStore: { me, we },
   } = props;
 
-  const fetchMe = () => {
+  const fetchMe = async () => {
     const { meStore } = props;
 
     const handleSuccess = ({ data }) => {
@@ -72,9 +71,9 @@ function StudentAuthGuardHOC(props) {
       console.log("error: Not authenticated");
       router.push("/");
     }
-
-    return state.hasCheckedLocalStorageToken ? props.children : null;
   }, []);
+
+  return state.hasCheckedLocalStorageToken ? props.children : null;
 }
 
 export default inject("meStore")(observer(StudentAuthGuardHOC));

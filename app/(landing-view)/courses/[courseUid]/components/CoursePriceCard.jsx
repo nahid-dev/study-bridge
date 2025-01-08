@@ -15,7 +15,10 @@ const CoursePriceInfo = ({ courseDetails }) => {
   const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
 
   const details = [
-    { label: "Duration", value: formatDuration(courseDetails?.total_duration) },
+    {
+      label: "Duration",
+      value: formatDuration(courseDetails?.total_duration || "00:00:00"),
+    },
     { label: "Lectures", value: courseDetails?.total_lectures },
     { label: "Enrolled", value: courseDetails?.total_enrollment || 0 },
     { label: "Language", value: coursedetail?.language },
@@ -47,7 +50,9 @@ const CoursePriceInfo = ({ courseDetails }) => {
       {/* Price Section */}
       <div className="mb-4">
         <div className="flex items-center space-x-2">
-          <h6 className="text-3xl font-medium">{coursedetail?.actual_price}</h6>
+          <h6 className="text-3xl font-medium">
+            ${coursedetail?.actual_price}
+          </h6>
           {/* <span className="text-gray-500 line-through">{price.original}</span> */}
           {/* <span className="text-sm font-medium text-purple-700 bg-purple-100 rounded px-2 py-0.5">
             {price.discount}

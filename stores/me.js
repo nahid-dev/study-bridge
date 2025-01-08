@@ -51,6 +51,11 @@ class MeStore {
   logout = () => {
     this.me_ = null;
   };
+
+  destroy() {
+    // Custom cleanup logic if needed
+    console.log("Store destroyed");
+  }
 }
 
 export default new MeStore();

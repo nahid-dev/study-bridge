@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -14,20 +14,22 @@ import "swiper/css/pagination";
 // import required modules
 import { EffectFade, Navigation, Pagination } from "swiper/modules";
 import CourseCard from "@/components/cards/CourseCard";
-
-const bestSellers = {
-  title: "Fashion Photography From Professional",
-  tag: "Photography",
-  image: "/images/cards/photo-35.jpg",
-  userImage: "/images/avatar/avatar-1.jpg",
-  rating: 4,
-  lessons: 12,
-  duration: "8min",
-  price: 415.99,
-  discount: 959,
-};
+import APIKit from "@/common/helpers/APIKit";
+import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
 
 const HeroSection = () => {
+  const [params, setParams] = useState({
+    category_name: "",
+    search: "",
+  });
+  const { data, isLoading } = useQuery({
+    queryKey: ["/courses"],
+    queryFn: () =>
+      APIKit.public.getCourses({ params: params }).then(({ data }) => data),
+  });
+
+  const cardDetails = isLoading || data[0];
   return (
     <div className="h-[calc(100vh-64px)] flex items-center justify-center overflow-hidden">
       <Swiper
@@ -62,13 +64,16 @@ const HeroSection = () => {
                   <Button variant="outline" className="px-10">
                     Get Started
                   </Button>
-                  <Button className="px-10 bg-[#146ecf] text-white hover:bg-[#0f5fba]">
-                    View Courses
+                  <Button
+                    asChild
+                    className="px-10 bg-[#146ecf] text-white hover:bg-[#0f5fba]"
+                  >
+                    <Link href="/courses">View Courses</Link>
                   </Button>
                 </div>
               </div>
               <div className="col-span-1 flex items-center">
-                <CourseCard cardDetails={bestSellers} />
+                <CourseCard cardDetails={cardDetails} />
               </div>
             </div>
           </div>
@@ -94,13 +99,16 @@ const HeroSection = () => {
                   <Button variant="outline" className="px-10">
                     Get Started
                   </Button>
-                  <Button className="px-10 bg-[#146ecf] text-white hover:bg-[#0f5fba]">
-                    View Courses
+                  <Button
+                    asChild
+                    className="px-10 bg-[#146ecf] text-white hover:bg-[#0f5fba]"
+                  >
+                    <Link href="/courses">View Courses</Link>
                   </Button>
                 </div>
               </div>
               <div className="col-span-1 flex items-center">
-                <CourseCard cardDetails={bestSellers} />
+                <CourseCard cardDetails={cardDetails} />
               </div>
             </div>
           </div>
@@ -126,13 +134,16 @@ const HeroSection = () => {
                   <Button variant="outline" className="px-10">
                     Get Started
                   </Button>
-                  <Button className="px-10 bg-[#146ecf] text-white hover:bg-[#0f5fba]">
-                    View Courses
+                  <Button
+                    asChild
+                    className="px-10 bg-[#146ecf] text-white hover:bg-[#0f5fba]"
+                  >
+                    <Link href="/courses">View Courses</Link>
                   </Button>
                 </div>
               </div>
               <div className="col-span-1 flex items-center">
-                <CourseCard cardDetails={bestSellers} />
+                <CourseCard cardDetails={cardDetails} />
               </div>
             </div>
           </div>

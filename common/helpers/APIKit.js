@@ -57,6 +57,18 @@ const APIKit = {
       const url = `/courses/${course_uid}/lecture/${lecture_uid}/lecture-complete`;
       return client.post(url, payload);
     },
+    getQuizzes: (course_uid, lesson_uid) => {
+      const url = `/courses/${course_uid}/lesson/${lesson_uid}/quiz`;
+      return client.get(url);
+    },
+    postQuizAnswer: (course_uid, lesson_uid, payload) => {
+      const url = `/courses/${course_uid}/lesson/${lesson_uid}/quiz-submission`;
+      return client.post(url, payload);
+    },
+    getQuizResult: (course_uid, lesson_uid) => {
+      const url = `/courses/${course_uid}/lesson/${lesson_uid}/quiz-submission-result`;
+      return client.get(url);
+    },
   },
 };
 

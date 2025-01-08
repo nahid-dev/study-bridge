@@ -1,9 +1,14 @@
+"use client";
+import SectionHeader from "@/components/SectionHeader";
 import React from "react";
 
 const ContactPage = () => {
   return (
     <div>
-      <h3>Contact us page.</h3>
+      <SectionHeader
+        title="Contact Page"
+        helperText="This is Contact us page."
+      />
     </div>
   );
 };

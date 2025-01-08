@@ -134,21 +134,21 @@ const CourseDetails = ({ params }) => {
               </div>
             </div>
             {/* COURSE VIDEO */}
-            <div className="relative overflow-hidden rounded-md">
-              <video
-                src={courseDetails?.video_url}
-                className="w-full rounded-md"
-              ></video>
-              {/* <Image
-                src="/images/products/product-3.jpg"
-                width={2500}
-                height={2490}
-                alt="Course Image"
-                className="rounded-md"
-              /> */}
-              {/* <div className="bg-white p-2 rounded-full inline-block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer">
-                <Play strokeWidth={1} className="size-10" />
-              </div> */}
+            <div className="rounded-md">
+              {!isLoading ? (
+                <iframe
+                  className="w-full h-96 rounded-md"
+                  src={`https://www.youtube.com/embed/${new URL(
+                    courseDetails?.video_url
+                  ).searchParams.get("v")}`}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  title="YouTube Video"
+                ></iframe>
+              ) : (
+                "Loading..."
+              )}
             </div>
             {/* COURSE DESCRIPTION */}
             <div className="flex flex-col gap-5">
@@ -194,7 +194,7 @@ const CourseDetails = ({ params }) => {
             title="Related Courses"
             helperText="Discover your perfect program in our courses."
           />
-          <RelatedCourseSection categoryName={category?.name } />
+          <RelatedCourseSection categoryName={category?.name} />
         </div>
       </Container>
     </div>
