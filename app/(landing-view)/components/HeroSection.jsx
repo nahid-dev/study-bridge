@@ -29,6 +29,7 @@ const HeroSection = () => {
       APIKit.public.getCourses({ params: params }).then(({ data }) => data),
   });
 
+
   const cardDetails = isLoading || data[0];
   return (
     <div className="h-[calc(100vh-64px)] flex items-center justify-center overflow-hidden">
@@ -61,7 +62,15 @@ const HeroSection = () => {
                   things on different ways.
                 </p>
                 <div className="flex gap-4 w-full">
-                  <Button variant="outline" className="px-10">
+                  <Button
+                    onClick={() => {
+                      document
+                        .getElementById("featured-courses")
+                        ?.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    variant="outline"
+                    className="px-10"
+                  >
                     Get Started
                   </Button>
                   <Button
@@ -96,7 +105,15 @@ const HeroSection = () => {
                   things on different ways.
                 </p>
                 <div className="flex gap-4 w-full">
-                  <Button variant="outline" className="px-10">
+                  <Button
+                    onClick={() => {
+                      document
+                        .getElementById("featured-courses")
+                        ?.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    variant="outline"
+                    className="px-10"
+                  >
                     Get Started
                   </Button>
                   <Button
@@ -131,7 +148,15 @@ const HeroSection = () => {
                   things on different ways.
                 </p>
                 <div className="flex gap-4 w-full">
-                  <Button variant="outline" className="px-10">
+                  <Button
+                    onClick={() => {
+                      document
+                        .getElementById("featured-courses")
+                        ?.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    variant="outline"
+                    className="px-10"
+                  >
                     Get Started
                   </Button>
                   <Button

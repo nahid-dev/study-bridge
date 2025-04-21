@@ -44,13 +44,13 @@ const CoursesPage = () => {
       <SectionHeader
         title="Courses"
         helperText="Here are the Courses we offer"
+        customClassName="gap-0"
       />
-      <div>
+      <div className="mt-5">
         <Container>
           <div className="flex items-center gap-3 justify-center">
             <div className="w-full sm:w-1/2">
               <SearchByTextField
-                label="Search"
                 name="search"
                 id="search"
                 placeholder="Search by name..."

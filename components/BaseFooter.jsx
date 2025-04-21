@@ -1,4 +1,5 @@
 "use client";
+import { footerSections } from "@/lib/options";
 import { usePathname } from "next/navigation";
 import React from "react";
 
@@ -22,54 +23,41 @@ const BaseFooter = () => {
         isLandingView ? "bg-primary text-white pt-10" : "bg-[#f7f9fb]"
       }  `}
     >
-      <div className="p-20 grid grid-cols-1 md:grid-cols-3 gap-5">
-        <div className="flex flex-col gap-5 text-center">
-          <h5
-            className={`${
-              isLandingView ? "text-white" : ""
-            } text-xl font-semibold`}
-          >
-            Our Latest Courses
-          </h5>
-          <ul>
-            {companyInfoList?.map((item, index) => (
-              <li key={index}>{item}</li>
-            ))}
-          </ul>
-        </div>
-        <div className="flex flex-col gap-5 items-center text-center">
-          <h5
-            className={`${
-              isLandingView ? "text-white" : ""
-            } text-xl font-semibold`}
-          >
-            Our Social Links
-          </h5>
-          <ul className="w-full">
-            {latestCourses?.map((item, index) => (
-              <li key={index}>{item}</li>
-            ))}
-          </ul>
-        </div>
-        <div className="flex flex-col gap-5 text-center">
-          <h5
-            className={`${
-              isLandingView ? "text-white" : ""
-            } text-xl font-semibold`}
-          >
-            Our Latest Courses
-          </h5>
-          <ul>
-            {companyInfoList?.map((item, index) => (
-              <li key={index}>{item}</li>
-            ))}
-          </ul>
-        </div>
+      <div className="p-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        {footerSections.map((item, index) => (
+          <div key={index} className="flex flex-col gap-5 text-center">
+            <h5
+              className={`${
+                isLandingView ? "text-white" : ""
+              } text-xl font-medium`}
+            >
+              {item?.title}
+            </h5>
+            <ul className="flex flex-col gap-2">
+              {item.links.map((link, index) => (
+                <li key={index}>
+                  <a
+                    // className={`${
+                    //   isLandingView ? "text-white" : "text-foreground"
+                    // } text-lg hover:text-primary`}
+                    href={link?.link}
+                    className="text-gray-400"
+                  >
+                    {link?.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
-      <hr />
+
+      <div className="h-[1px] w-full bg-foreground"></div>
+
       <div className="flex items-center py-5 mx-auto text-center">
-        <p className="w-full">
-          Copyright © 2021 Language Learning. All Right Reserved.
+        <p className="w-full text-gray-400">
+          Copyright © 2025 British English Learn. Empowering learners worldwide
+          to speak confidently. All rights reserved.
         </p>
       </div>
     </div>

@@ -135,7 +135,9 @@ const CourseDetails = ({ params }) => {
             </div>
             {/* COURSE VIDEO */}
             <div className="rounded-md">
-              {!isLoading ? (
+              {isLoading ? (
+                <div>Loading...</div>
+              ) : courseDetails?.video_url ? (
                 <iframe
                   className="w-full h-96 rounded-md"
                   src={`https://www.youtube.com/embed/${new URL(
@@ -147,7 +149,7 @@ const CourseDetails = ({ params }) => {
                   title="YouTube Video"
                 ></iframe>
               ) : (
-                "Loading..."
+                <div>No Video Found!</div>
               )}
             </div>
             {/* COURSE DESCRIPTION */}

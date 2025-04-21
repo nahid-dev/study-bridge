@@ -41,12 +41,12 @@ export default function SearchByTextField({
       />
 
       {value.length > 0 ? (
-        <button onClick={onReset} className="absolute top-10 right-3">
-          <XMarkIcon className="w-5 h-5 text-neutral-500" />
+        <button onClick={onReset} className="absolute top-[18px] right-3">
+          <XMarkIcon className="size-5 text-neutral-500" />
         </button>
       ) : (
-        <button className="absolute text-primary-600 top-10 right-3">
-          <MagnifyingGlassIcon className="w-5 h-5" />
+        <button className="absolute text-primary-600 top-[18px] right-3">
+          <MagnifyingGlassIcon className="size-5" />
         </button>
       )}
     </div>

@@ -85,7 +85,7 @@ const LoginSection = ({
         loading: "Signing you in...",
         success: "Signed in successfully",
         error: (error) =>
-          error.response.data?.details || "Authentication failed!",
+          error?.response?.data?.details || "Authentication failed!",
       });
     },
   });

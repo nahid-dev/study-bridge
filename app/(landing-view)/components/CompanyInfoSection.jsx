@@ -5,7 +5,7 @@ const companyInfoItems = [
   {
     type: "address",
     icon: MapPin,
-    details: "329 Queensberry Street, North Melbourne VIC 3051, Australia.",
+    details: "Dhanmondi, Dhaka, Bangladesh",
   },
   {
     type: "phone",
@@ -18,16 +18,16 @@ const companyInfoItems = [
   {
     type: "email",
     icon: Mail,
-    details: "support@skola.com",
+    details: "support@gmail.com",
   },
 ];
 
 const CompanyInfoSection = () => {
   return (
-    <div>
+    <>
       <Container>
         <div className="h-40 relative">
-          <div className="grid grid-cols-1 md:grid-cols-3 rounded-md bg-foreground px-10 py-3 absolute -bottom-20">
+          <div className="grid grid-cols-1 md:grid-cols-3 rounded-md bg-foreground px-10 py-3 absolute top-1/2 w-full">
             {companyInfoItems.map((item, index) => (
               <div key={index} className="flex flex-col items-center gap-4">
                 <div className=" p-3 rounded-full">
@@ -50,7 +50,7 @@ const CompanyInfoSection = () => {
           </div>
         </div>
       </Container>
-    </div>
+    </>
   );
 };
 

@@ -22,7 +22,7 @@ const FeaturedCoursesSection = () => {
     return "Loading...";
   }
   return (
-    <div className="py-10">
+    <div className="py-10" id="featured-courses">
       <SectionHeader
         title="Featured Courses"
         helperText="Discover your perfect program in our courses."
