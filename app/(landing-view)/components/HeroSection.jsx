@@ -17,6 +17,7 @@ import CourseCard from "@/components/cards/CourseCard";
 import APIKit from "@/common/helpers/APIKit";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+import CourseCardSkeleton from "@/components/skeletons/CourseCardSkeleton";
 
 const HeroSection = () => {
   const [params, setParams] = useState({
@@ -28,7 +29,6 @@ const HeroSection = () => {
     queryFn: () =>
       APIKit.public.getCourses({ params: params }).then(({ data }) => data),
   });
-
 
   const cardDetails = isLoading || data[0];
   return (
@@ -82,7 +82,11 @@ const HeroSection = () => {
                 </div>
               </div>
               <div className="col-span-1 flex items-center">
-                <CourseCard cardDetails={cardDetails} />
+                {isLoading ? (
+                  <CourseCardSkeleton />
+                ) : (
+                  <CourseCard cardDetails={cardDetails} />
+                )}
               </div>
             </div>
           </div>

@@ -16,7 +16,7 @@ const CourseCard = ({ cardDetails }) => {
       <div className="space-y-3">
         <div className="rounded-md overflow-hidden h-64">
           <Image
-            src={cardDetails?.image_url}
+            src={cardDetails?.image_url || "/images/cards/photo-35.jpg"}
             width={650}
             height={650}
             alt="Course Image"
