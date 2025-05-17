@@ -25,7 +25,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@radix-ui/react-dropdown-menu";
+} from "@/components/ui/dropdown-menu";
+import { inject, observer } from "mobx-react";
 
 const navItems = [
   { title: "Home", href: "/" },
@@ -34,14 +35,14 @@ const navItems = [
   { title: "Contact", href: "/contact" },
 ];
 
-const BaseNavbar = () => {
+const BaseNavbar = ({ meStore }) => {
   const pathName = usePathname();
+  const { me } = meStore;
   const [isLoginSidebarOpen, setIsLoginSidebarOpen] = useState(false);
   const [isOpenMobileMenu, setOpenMobileMenu] = useState(false);
   const [isOpenCartDrawer, setIsOpenCartDrawer] = useState(false);
-  const user = {
-    role: "admin",
-  };
+
+  const hasToken = localStorage.getItem("@AUTH_TOKEN");
 
   return (
     <div className="bg-gray-100">
@@ -62,11 +63,11 @@ const BaseNavbar = () => {
               ))}
             </ul>
           </div>
-          <div className="flex items-center gap-4">
-            {user?.role === "student" ? (
+          <div>
+            {!!hasToken ? (
               <DropdownMenu>
-                <DropdownMenuTrigger>
-                  <div className=" size-[40px] rounded-full">
+                <DropdownMenuTrigger asChild>
+                  <div className="size-[40px] rounded-full cursor-pointer">
                     <Image
                       src="/images/avatar/avatar-1.jpg"
                       alt="User image"
@@ -76,16 +77,26 @@ const BaseNavbar = () => {
                     />
                   </div>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56 border mt-2 p-3 space-y-3 shadow bg-white mr-5 rounded-md z-50">
+                <DropdownMenuContent
+                  className="w-56 border p-3 space-y-3 shadow-lg bg-white rounded-md absolute right-0"
+                  alignOffset={-5}
+                  sideOffset={8}
+                  style={{
+                    maxHeight: "80vh",
+                    overflowY: "auto",
+                    zIndex: 50,
+                    position: "relative",
+                  }}
+                >
                   <DropdownMenuLabel className="text-gray-700 font-semibold bg-gray-50 p-3">
                     My Account
                   </DropdownMenuLabel>
-                  <DropdownMenuSeparator />
+                  <DropdownMenuSeparator className="bg-gray-200" />
                   <DropdownMenuGroup className="flex flex-col gap-3">
-                    <DropdownMenuItem className="border p-3 rounded-md hover:bg-gray-50 transition-all duration-200 cursor-pointer flex items-center gap-3">
+                    <DropdownMenuItem className="border p-3 rounded-md hover:bg-gray-50 transition-all duration-200 cursor-pointer flex items-center gap-3 focus:bg-gray-50 focus:text-gray-900">
                       <FileText className="size-5" /> <span>My courses</span>
                     </DropdownMenuItem>
-                    <DropdownMenuItem className="border p-3 rounded-md hover:bg-gray-50 transition-all duration-200 cursor-pointer flex items-center gap-3">
+                    <DropdownMenuItem className="border p-3 rounded-md hover:bg-gray-50 transition-all duration-200 cursor-pointer flex items-center gap-3 focus:bg-gray-50 focus:text-gray-900">
                       <LogOut className="size-5" />
                       <span>Log out</span>
                     </DropdownMenuItem>
@@ -136,4 +147,4 @@ const BaseNavbar = () => {
   );
 };
 
-export default BaseNavbar;
+export default inject("meStore")(observer(BaseNavbar));
