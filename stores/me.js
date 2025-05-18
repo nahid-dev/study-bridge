@@ -19,15 +19,18 @@ class MeStore {
     });
   }
 
-  fetch = () => {
-    // Fetch user data
-    const onSuccess = ({ data }) => {
+  fetch = async () => {
+    if (this.isLoading) return;
+
+    this.isLoading = true;
+    try {
+      const { data } = await APIKit.auth.getMe();
       this.setMe(data);
-    };
-    const onFailure = (error) => {
+    } catch (error) {
       console.error("Failed to fetch user data:", error);
-    };
-    return APIKit.auth.getMe().then(onSuccess).catch(onFailure);
+    } finally {
+      this.isLoading = false;
+    }
   };
 
   // ACTIONS
@@ -41,6 +44,9 @@ class MeStore {
 
   // GETTERS
   get me() {
+    if (!this.me_ && !this.isLoading) {
+      this.fetch(); // Auto fetch if no data
+    }
     return toJS(this.me_);
   }
 

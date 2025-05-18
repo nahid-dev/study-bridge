@@ -59,36 +59,29 @@ const SignUpSection = ({
       setSubmitting(true);
 
       const handleSuccess = ({ data }) => {
-        console.log("HandleSuccess triggered:", data);
         setJWTTokenAndRedirect(data?.token?.access, () => {
           router.push("/dashboard/my-courses");
           setIsOpen(false);
         });
+        toast.success("Successfully signed up!");
+        setIsOpenSignUpDrawer(false);
       };
 
       const handleFailure = (error) => {
-        console.error("HandleFailure triggered:", error);
-        toast.error("Something went wrong!");
+        console.error(
+          "HandleFailure triggered:",
+          error?.response?.data?.email[0]
+        );
+        toast.error(error?.response?.data?.email[0] || "Something went wrong!");
       };
 
       const promise = APIKit.auth
         .register(values)
-        .then((response) => {
-          // toast.success("Singed up successfully!");
-          // setIsOpenSignUpDrawer(false);
-          handleSuccess(response);
-        })
-        .catch((error) => {
-          toast.error("Failed to sign up");
-          handleFailure(error);
-        })
-        .finally(() => {
-          setSubmitting(false);
-          toast.dismiss();
-        });
-
-      toast.loading("Signing up...");
-      return promise;
+        .then(handleSuccess)
+        .catch(handleFailure);
+      return toast.promise(promise, {
+        loading: "Signing up...",
+      });
     },
   });
 

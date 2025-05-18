@@ -38,6 +38,7 @@ const navItems = [
 const BaseNavbar = ({ meStore }) => {
   const pathName = usePathname();
   const { me } = meStore;
+  console.log(me);
   const [isLoginSidebarOpen, setIsLoginSidebarOpen] = useState(false);
   const [isOpenMobileMenu, setOpenMobileMenu] = useState(false);
   const [isOpenCartDrawer, setIsOpenCartDrawer] = useState(false);
@@ -65,7 +66,7 @@ const BaseNavbar = ({ meStore }) => {
           </div>
           <div>
             {!!hasToken ? (
-              <DropdownMenu>
+              <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
                   <div className="size-[40px] rounded-full cursor-pointer">
                     <Image
@@ -78,15 +79,10 @@ const BaseNavbar = ({ meStore }) => {
                   </div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
-                  className="w-56 border p-3 space-y-3 shadow-lg bg-white rounded-md absolute right-0"
-                  alignOffset={-5}
+                  className="w-56 border p-3 space-y-3 shadow-lg bg-white rounded-md"
+                  align="end"
                   sideOffset={8}
-                  style={{
-                    maxHeight: "80vh",
-                    overflowY: "auto",
-                    zIndex: 50,
-                    position: "relative",
-                  }}
+                  alignOffset={-5}
                 >
                   <DropdownMenuLabel className="text-gray-700 font-semibold bg-gray-50 p-3">
                     My Account
