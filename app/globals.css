@@ -136,3 +136,6 @@
   overflow: hidden;
   height: 100vh;
 }
+.mySwiper .swiper-wrapper {
+  bottom: 20px;
+}

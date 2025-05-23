@@ -11,7 +11,7 @@ import {
   ShoppingBag,
   UserCircleIcon,
 } from "lucide-react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import RightSideDrawer from "../sidebars/RightSideDrawer";
 import AuthenticationDrawer from "../drawer/AuthenticationDrawer";
 import MobileNavbar from "./MobileNavbar";
@@ -36,8 +36,9 @@ const navItems = [
 ];
 
 const BaseNavbar = ({ meStore }) => {
+  const router = useRouter();
   const pathName = usePathname();
-  const { me } = meStore;
+  const { me, logout } = meStore;
   console.log(me);
   const [isLoginSidebarOpen, setIsLoginSidebarOpen] = useState(false);
   const [isOpenMobileMenu, setOpenMobileMenu] = useState(false);
@@ -93,8 +94,15 @@ const BaseNavbar = ({ meStore }) => {
                       <FileText className="size-5" /> <span>My courses</span>
                     </DropdownMenuItem>
                     <DropdownMenuItem className="border p-3 rounded-md hover:bg-gray-50 transition-all duration-200 cursor-pointer flex items-center gap-3 focus:bg-gray-50 focus:text-gray-900">
-                      <LogOut className="size-5" />
-                      <span>Log out</span>
+                      <div
+                        onClick={() => {
+                          logout();
+                          router.push("/");
+                        }}
+                      >
+                        <LogOut className="size-5" />
+                        <span>Log out</span>
+                      </div>
                     </DropdownMenuItem>
                   </DropdownMenuGroup>
                 </DropdownMenuContent>

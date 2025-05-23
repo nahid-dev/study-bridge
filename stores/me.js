@@ -56,6 +56,7 @@ class MeStore {
 
   logout = () => {
     this.me_ = null;
+    localStorage.removeItem("@AUTH_TOKEN"); // <-- clear token
   };
 
   destroy() {

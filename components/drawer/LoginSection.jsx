@@ -66,10 +66,14 @@ const LoginSection = ({
 
         if (error?.response) {
           const data = error.response.data;
-          if (data.detail) {
-            setBackendErrors({ non_field_errors: data.detail });
-          } else if (data) {
-            setBackendErrors(data);
+          if (data?.details) {
+            toast.error(data.details);
+          } else if (data?.non_field_errors) {
+            toast.error(data.non_field_errors[0]);
+          } else if (data?.email) {
+            toast.error(data.email[0]);
+          } else if (data?.password) {
+            toast.error(data.password[0]);
           }
         }
 
