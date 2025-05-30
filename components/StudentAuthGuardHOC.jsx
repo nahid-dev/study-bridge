@@ -3,7 +3,7 @@ import APIKit from "@/common/helpers/APIKit";
 import HTTPKit from "@/common/helpers/HTTPKits";
 import { AUTH_TOKEN_KEY } from "@/common/helpers/KeyChain";
 import { inject, observer } from "mobx-react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export const setJWTTokenAndRedirect = (token, redirector = () => {}) => {
@@ -21,36 +21,29 @@ export const setJWTTokenAndRedirect = (token, redirector = () => {}) => {
 };
 
 function StudentAuthGuardHOC(props) {
-  const pathname = usePathname();
   const searchParams = useSearchParams();
-  const tab = searchParams.get("tab");
   const router = useRouter();
   const [state, setState] = useState({
     isAuthenticated: false,
     hasCheckedLocalStorageToken: false,
   });
 
-  const {
-    meStore: { me, we },
-  } = props;
-
-  const fetchMe = async () => {
-    const { meStore } = props;
-
-    const handleSuccess = ({ data }) => {
-      meStore.setMe(data);
-    };
-
-    const handleFailure = (error) => {
-      if (error) {
-        router.push("/logout");
-      }
-    };
-
-    return APIKit.auth.getMe().then(handleSuccess).catch(handleFailure);
-  };
+  const { meStore } = props;
 
   useEffect(() => {
+    const fetchMe = async () => {
+      const handleSuccess = ({ data }) => {
+        meStore.setMe(data);
+      };
+
+      const handleFailure = (error) => {
+        if (error) {
+          router.push("/logout");
+        }
+      };
+
+      return APIKit.auth.getMe().then(handleSuccess).catch(handleFailure);
+    };
     const token = localStorage.getItem(AUTH_TOKEN_KEY);
     if (token) {
       setJWTTokenAndRedirect(token)
@@ -71,7 +64,7 @@ function StudentAuthGuardHOC(props) {
       console.log("error: Not authenticated");
       router.push("/");
     }
-  }, []);
+  }, [meStore, router]);
 
   return state.hasCheckedLocalStorageToken ? props.children : null;
 }

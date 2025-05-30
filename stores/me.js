@@ -1,3 +1,4 @@
+"use client";
 import APIKit from "@/common/helpers/APIKit";
 import { action, observable, computed, makeObservable, toJS } from "mobx";
 

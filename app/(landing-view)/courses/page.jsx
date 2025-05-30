@@ -4,21 +4,8 @@ import CourseCard from "@/components/cards/CourseCard";
 import Container from "@/components/Container";
 import SearchByTextField from "@/components/SearchByTextField";
 import SectionHeader from "@/components/SectionHeader";
-import SelectField from "@/components/SelectField";
-import { courses } from "@/lib/options";
 import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
-
-const sortOptions = [
-  {
-    label: "Newest",
-    value: "-created_at",
-  },
-  {
-    label: "Oldest",
-    value: "created_at",
-  },
-];
 
 const CoursesPage = () => {
   const [params, setParams] = useState({
@@ -26,7 +13,7 @@ const CoursesPage = () => {
     search: "",
   });
   const { data, isLoading, refetch } = useQuery({
-    queryKey: ["/courses"],
+    queryKey: ["courses"],
     queryFn: () =>
       APIKit.public.getCourses({ params: params }).then(({ data }) => data),
   });

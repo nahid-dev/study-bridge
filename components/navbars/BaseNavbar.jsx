@@ -39,7 +39,6 @@ const BaseNavbar = ({ meStore }) => {
   const router = useRouter();
   const pathName = usePathname();
   const { me, logout } = meStore;
-  console.log(me);
   const [isLoginSidebarOpen, setIsLoginSidebarOpen] = useState(false);
   const [isOpenMobileMenu, setOpenMobileMenu] = useState(false);
   const [isOpenCartDrawer, setIsOpenCartDrawer] = useState(false);
