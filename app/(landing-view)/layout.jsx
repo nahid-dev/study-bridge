@@ -1,12 +1,6 @@
 import React from "react";
-import dynamic from "next/dynamic";
 import BaseFooter from "@/components/BaseFooter";
-// import BaseNavbar from "@/components/navbars/BaseNavbar";
-// import BaseNavbar from "@/components/navbars/BaseNavbar";
-// const BaseNavbar = dynamic(() => import("@/components/navbars/BaseNavbar"), {
-const BaseNavbar = dynamic(() => import("@/components/navbars/BaseNavbar"), {
-  ssr: false,
-});
+import BaseNavbar from "@/components/navbars/BaseNavbar";
 
 const BaseLayout = ({ children }) => {
   return (

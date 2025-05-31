@@ -26,7 +26,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { inject, observer } from "mobx-react";
 
 const navItems = [
   { title: "Home", href: "/" },
@@ -35,15 +34,17 @@ const navItems = [
   { title: "Contact", href: "/contact" },
 ];
 
-const BaseNavbar = ({ meStore }) => {
+const BaseNavbar = () => {
   const router = useRouter();
   const pathName = usePathname();
-  const { me, logout } = meStore;
   const [isLoginSidebarOpen, setIsLoginSidebarOpen] = useState(false);
   const [isOpenMobileMenu, setOpenMobileMenu] = useState(false);
   const [isOpenCartDrawer, setIsOpenCartDrawer] = useState(false);
 
-  const hasToken = localStorage.getItem("@AUTH_TOKEN");
+  let hasToken = false;
+  // if (typeof window !== "undefined") {
+  //   hasToken = localStorage.getItem("@AUTH_TOKEN");
+  // }
 
   return (
     <div className="bg-gray-100">
@@ -94,10 +95,9 @@ const BaseNavbar = ({ meStore }) => {
                     </DropdownMenuItem>
                     <DropdownMenuItem className="border p-3 rounded-md hover:bg-gray-50 transition-all duration-200 cursor-pointer flex items-center gap-3 focus:bg-gray-50 focus:text-gray-900">
                       <div
-                        onClick={() => {
-                          logout();
-                          router.push("/");
-                        }}
+                      // onClick={() => {
+                      //   router.push("/");
+                      // }}
                       >
                         <LogOut className="size-5" />
                         <span>Log out</span>
@@ -149,5 +149,4 @@ const BaseNavbar = ({ meStore }) => {
     </div>
   );
 };
-
-export default inject("meStore")(observer(BaseNavbar));
+export default BaseNavbar;
